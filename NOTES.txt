@@ -7,3 +7,7 @@ Library dependencies:
   id3lib
   sqlite3
   openssl (MD5)
+
+For GUI:
+  Phonon
+  Qt 4.4
