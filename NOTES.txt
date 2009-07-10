@@ -1,0 +1,9 @@
+Tag support:
+  ID3v2 tag at the start of the file
+  ID3v1 or ID3v1.1 tag at the end of the file
+
+Library dependencies:
+  libsmbclient
+  id3lib
+  sqlite3
+  openssl (MD5)

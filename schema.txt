@@ -1,0 +1,28 @@
+CREATE TABLE Song (
+    song_id INTEGER NOT NULL PRIMARY KEY,
+    url TEXT UNIQUE,
+    indexed INTEGER NOT NULL,       /* timestamp */
+    tagtype INTEGER NOT NULL,       /* 1: ID3v1, 2: ID3v2 */
+    title TEXT,
+    artist TEXT,
+    album TEXT,
+    track INTEGER,
+    year INTEGER,
+    /* TODO: length of the song in seconds */
+    filesize INTEGER NOT NULL,
+    digest BLOB NOT NULL );
+
+/* Search terms (normalized to lower-case letters/digits) */
+CREATE TABLE Term(
+    term_id INTEGER NOT NULL PRIMARY KEY,
+    text TEXT UNIQUE NOT NULL );
+
+/* Term occurrences */
+CREATE TABLE TermOcc (
+    term_id INTEGER REFERENCES Term(term_Id)
+         ON DELETE CASCADE ON UPDATE CASCADE,
+    song_id INTEGER REFERENCES Song(song_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    type INTEGER NOT NULL,      /* 1: title, 2: artist, 3: album */
+    pos INTEGER NOT NULL,       /* 0-based index */
+    UNIQUE(term_id, song_id, type, pos) );
